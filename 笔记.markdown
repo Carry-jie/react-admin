@@ -1,0 +1,54 @@
+
+高阶函数
+  - 一类特别的函数
+    - a. 接受函数类型的参数
+    - b. 返回值是函数
+  - 常见的高阶函数
+    - 定时器：setTimeout() / setInterval()
+    - Promise： Promise
+    - 数组遍历相关的方法：forEach() 、 filter() 、 map() 、reduce() 、find() 、 findIndex()
+      - 函数对象的 bind() 方法，返回的是一个新的函数
+      - Form.create()() / getFieldDecorator()()
+    - 高阶函数更加动态，更加具有扩展性
+    - 高阶组件也是高阶函数: 接受的一个组件函数，返回一个新的组件函数
+  
+  
+高阶组件
+  - 本质就是一个函数
+  - 接受一个组件(被包装组件)，返回一个新的组件(包装组件)，包装组件会向被包装组件传入特性的属性，装组件是被包装组件的父组件
+  - 作用: 扩展组件的功能
+
+- 用脚手架创建的 react 项目，并且是在开发环境中，可以设置跨域问题，在 package.json 中设置 "proxy":"http://localhost:5000" 就实现代理跨域问题了，但是在 生产环境中 不支持这样配置代理跨域
+
+
+async 和 await
+- 作用
+    + 简化 promise 对象的使用，不用再使用 then() 来指定成功 / 失败的回调函数了
+    + 以 同步编码(没有回调函数了)的方式实现异步流程
+
+- 哪里写 await
+    + 在返回 promise 的表达式左侧写 await，因为不想要promise，想要 promise 异步执行的成功的 value 数据
+- 哪里写 async
+    + await 所在函数(最近的)定义的左侧写 async
+
+
+
+history.push() 和 history.replace() 区别 
+- history.push() 其实就是用的栈的管理方式来管理的，栈的特点是先进先出，当我们 A 路由页面 通过 history.push() 的方式跳转到 B 路由页面，那么 B 路由页面就在 A 路由页面的上面了，A路由页面还是存在的，在 B 路由页面回退的时候就看到了 A 路由页面了
+- history.replace() 其实就是用的代替的方式，当 A 路由页面通过 history.push() 的方式 跳转到B路由页面，B路由页面又通过 history.replace()的方式 跳转到 C路由页面，此时就是 C路由页面把 B路由页面给代替了，B路由页面就不存在了，所以也就没法回退到 B路由页面了，因为 A 路由页面跳转 B路由页面是通过 history.push() 的方式跳转的，所以A路由页面是存在的，所以按浏览器上的回退的时候只能回退到 A路由页面
+
+- 使用 HTML5本地存储(包括sessionStorage和localStorage)的好处
+    + 缓存数据
+    + 减少对内存的占用
+- localStorage的用法
+HTML5本地存储只能存字符串的数据，存储任何格式的数据，HTML5本地存储都会自动调用 toString() 方法强制转换成 字符串的形式在进行存储，但是有些数据通过 toString() 方法 强制转成字符串形式的数据以后，是没有意义的，或者说是我们不想要的，比如说我们将对象要存储到HTML5本地存储中的时候，那么对象就会自动通过 toString() 方法转成字符串类型，结果是 [object Object]，将这个 [object Object] 存储到 HTML5本地存储，是没有什么意义的，为了能使存储的数据取出来以后能够操作，所以在存储的时候先调用 JSON.string 方法，将对象或者数组转换成一个 JSON 格式的字符串，这样当存储到HTML5本地存储的时候，在调用 toString方法的时候，结果就不是 [object Object] 了，而是将 JSON 格式的字符串存储到了 HTML5 本地存储中，所以在读取HTML5 本地存储中的数据的时候，也需要自己先进行类型的转换，将存储到 HTML5 本地存储 中 JSON 字符串通过 JSON.parse 方法转成对象或者数组
+-比如说我们将对象通过 toString() 方法转成字符串类型的时候是 [object Object]
+
+
+
+- 当不是路由组件的时候，路由是不会默认给此组件传递相关的路由对象，如果想要是此组件使用路由传递过来的内容，需要引入 withRouter，然后 withRouter(非路由组件)，此时非路由组件就可以使用路由传递过来的相关的数据了
+
+- withRouter高阶组件：包装非路由组件，返回一个新的组件，新的组件向非路由组件传递3个属性:history、location、match
+
+
+- bus 可以分为俩种，一种是功能性bus，一种是异常性bus，异常性 bus 会报错，功能性 bus是功能有问题
